@@ -34,6 +34,7 @@ FROM python:${PYTHON_BASE_IMAGE} AS compiler
 ARG tag
 ENV tag ${tag:-master}
 
+RUN apt-get update && apt-get install -y build-essential curl
 RUN apt-get update && apt-get install -y git
 
 RUN mkdir -p /opt/venv && git clone https://github.com/lachyc/OctoPrint.git /opt/venv
