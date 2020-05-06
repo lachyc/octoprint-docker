@@ -34,12 +34,9 @@ FROM python:${PYTHON_BASE_IMAGE} AS compiler
 ARG tag
 ENV tag ${tag:-master}
 
-RUN apt-get update && apt-get install -y build-essential curl
+RUN apt-get update && apt-get install -y git
 
-RUN	curl -fsSLO --compressed --retry 3 --retry-delay 10 \
-  https://github.com/OctoPrint/OctoPrint/archive/${tag}.tar.gz \
-	&& mkdir -p /opt/venv \
-  && tar xzf ${tag}.tar.gz --strip-components 1 -C /opt/venv --no-same-owner
+RUN mkdir -p /opt/venv && git clone https://github.com/lachyc/OctoPrint.git /opt/venv
 
 #install venv            
 RUN pip install virtualenv
